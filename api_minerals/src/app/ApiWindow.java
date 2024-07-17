@@ -3,8 +3,12 @@ package app;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import org.json.simple.JSONObject;
+import app.ApiGET;
 
 public class ApiWindow extends JFrame {
 	
@@ -25,14 +29,22 @@ public class ApiWindow extends JFrame {
 		frame.setVisible(true);
 		
 		frame.add(ApiWindow.getButton(arg));
+		frame.add(ApiWindow.mainPanel(arg));
 		frame.add(ApiWindow.backgroundPanel(arg));
 		
 	 }
 	
-	public static Component getButton(String[] arg) {
+	public static JButton getButton(String[] arg) {
 		JButton getButton = new JButton("Get Data JSON");  
 	    getButton.setBounds(975,20,95,30);
 	    getButton.setSize(135,20);
+	    getButton.addActionListener(new ActionListener() {
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            ApiGET.main();
+	        }
+	    });
 		return getButton;  
 	    
 	}
@@ -40,7 +52,6 @@ public class ApiWindow extends JFrame {
 	public static Component backgroundPanel(String[] arg) {
 		RoundedPanel backgroundPanel = new RoundedPanel();
 		Color color = new Color(224,224,224);
-		JLabel bgLabel = new JLabel();
 		
 		backgroundPanel.setSize(850,600);
 		backgroundPanel.setShady(false);
@@ -48,29 +59,28 @@ public class ApiWindow extends JFrame {
 		backgroundPanel.setLocation(100,55);
 		backgroundPanel.setStrokeSize(0);
 		
-		bgLabel.setText("JSON Display Panel");
-		bgLabel.setText("");
-		
-		backgroundPanel.add(ApiWindow.mainPanel(arg));
-		backgroundPanel.add(bgLabel);
-		
+	
 		return backgroundPanel;
 	}
 	
 	public static Component mainPanel(String[] arg) {
 
 		RoundedPanel mainPanel = new RoundedPanel();
-		Color color = new Color(55,55,88);
+		JLabel textBoxLabel = new JLabel("Text");
+		Color color1 = new Color(55,55,88);
+		Color color2 = new Color(0,0,0);
 		
 		mainPanel.setSize(700,500);
 		mainPanel.setShady(false);
 		mainPanel.setArcs(new Dimension(10, 10));
-		mainPanel.setBackground(color);
-		mainPanel.setLocation(80,70);
+		mainPanel.setBackground(color1);
+		mainPanel.setLocation(150,100);
 		mainPanel.setStrokeSize(0);
-		
+		mainPanel.add(textBoxLabel);
+		textBoxLabel.setBackground(color2);
+		textBoxLabel.setVisible(true);
+
 		return mainPanel;
 	}
-
 
 }
